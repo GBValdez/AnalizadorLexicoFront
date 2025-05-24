@@ -129,10 +129,43 @@ export class AppComponent {
     monaco.languages.setMonarchTokensProvider('cafeScript', {
       tokenizer: {
         root: [
-          [/\b(?:foo|bar|baz)\b/, 'keyword'],
-          [/\d+/, 'number'],
-          [/[{}]/, 'delimiter.bracket'],
+          // Keywords
+          [
+            /\b(?:FUNCTION|RETURN|DEFINE|PRINT|IF|ELSE|ELSEIF|WHILE|LOOP|DO|THEN|END|TRUE|FALSE|AND|OR|NOT)\b/,
+            'keyword',
+          ],
+
+          // Número flotante: uno o más dígitos + punto + uno o más dígitos
+          [/\b\d+\.\d+\b/, 'number.float'],
+
+          // Número entero: uno o más dígitos
+          [/\b\d+\b/, 'number'],
+
+          // Identificador y cadena: empiezan con letra o _ seguido de letras, números o _
+          [/\b[a-zA-Z_][a-zA-Z0-9_]*\b/, 'identifier'],
+
+          // Operadores
+          [/==/, 'operator.eq'],
+          [/!=/, 'operator.neq'],
+          [/>=/, 'operator.gte'],
+          [/<=/, 'operator.lte'],
+          [/>/, 'operator.gt'],
+          [/</, 'operator.lt'],
+          [/\+/, 'operator.plus'],
+          [/-/, 'operator.minus'],
+          [/\*/, 'operator.mult'],
+          [/\//, 'operator.div'],
+
+          // Delimitadores
+          [/\(/, 'delimiter.parenthesis'],
+          [/\)/, 'delimiter.parenthesis'],
+          [/\,/, 'delimiter.comma'],
+          [/;/, 'delimiter.semicolon'],
+
+          // Strings entre comillas dobles
           [/".*?"/, 'string'],
+
+          // Comentarios línea (si usas //)
           [/\/\/.*/, 'comment'],
         ],
       },
